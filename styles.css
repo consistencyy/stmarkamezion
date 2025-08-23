@@ -1,0 +1,1714 @@
+/* === Theme: White background, black nav, burgundy buttons, gold accents === */
+:root {
+  --bg:#ffffff;
+  --surface:#ffffff;
+  --surface-alt:#fafafa;
+  --ink:#0b0b0b;
+  --muted:#60646c;
+  --muted-2:#8a8f98;
+  --brand:#8B1D2C;
+  /* burgundy */
+  --brand-600:#6f1623;
+  --gold:#c79200;
+  /* gold accent */
+  --border:#e6e8eb;
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+}
+.welcometitle {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  color: var(--brand);
+  margin: 0;
+  text-align: center;
+  padding: 16px;
+}
+* {
+  box-sizing:border-box
+}
+html {
+  scroll-behavior:smooth
+}
+body {
+  margin:0;
+  color:var(--ink);
+  background:var(--bg);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height:1.6;
+}
+img {
+  max-width:100%;
+  height:auto;
+  display:block
+}
+a {
+  color:var(--brand);
+  text-decoration:none
+}
+a:hover {
+  text-decoration:underline
+}
+.container {
+  max-width:1100px;
+  margin-inline:auto;
+  padding:0 20px
+}
+.container.narrow {
+  max-width:800px
+}
+.skip-link {
+  position:absolute;
+  left:-9999px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden
+}
+.skip-link:focus {
+  left:16px;
+  top:16px;
+  width:auto;
+  height:auto;
+  background:#fff;
+  color:#000;
+  padding:8px 12px;
+  border-radius:6px
+}
+/* --- Header / Nav --- */
+.site-header {
+  position:sticky;
+  top:0;
+  z-index:10;
+  background-color: rgba(0, 0, 0, 0.88);
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:saturate(140%) blur(8px);
+}
+.nav {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  min-height:64px
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#fff;
+  font-weight:800
+}
+.brand span {
+  color:#fff
+}
+.nav a {
+  color:#fff
+}
+.nav-toggle {
+  display:none;
+  background:transparent;
+  border:0;
+  color:#fff;
+  font-size:24px;
+  cursor:pointer
+}
+/* Dropdown */
+.nav-menu {
+  list-style:none;
+  display:flex;
+  gap:16px;
+  margin:0;
+  padding:0;
+  align-items:center
+}
+.nav-menu>li {
+  position:relative
+}
+.dropdown-toggle {
+  background:transparent;
+  border:0;
+  color:#fff;
+  font:inherit;
+  cursor:pointer;
+  padding:8px 6px;
+  border-radius:8px;
+}
+.dropdown-menu {
+  position:absolute;
+  top:100%;
+  left:0;
+  min-width:220px;
+  background:#111;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.08);
+  padding:8px;
+  border-radius:12px;
+  display:none;
+  box-shadow:var(--shadow);
+}
+.dropdown:hover .dropdown-menu, .dropdown:focus-within .dropdown-menu {
+  display:block
+}
+.dropdown-menu a {
+  display:block;
+  padding:8px 10px;
+  color:#fff;
+  border-radius:8px
+}
+.dropdown-menu a:hover {
+  background:#1a1a1a;
+  text-decoration:none
+}
+/* --- Main content area --- */
+  .full-height {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+}
+section[id] {
+  scroll-margin-top: 90px;
+}
+/* sticky-header friendly anchor scroll */
+
+  .hero-header {
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(199,154,0,.15);
+  margin-bottom: 12px;
+}
+.hero-title-row {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+}
+.hero-title-row h1 {
+  margin: 0;
+  line-height: 1.1;
+}
+.hero .motto {
+  margin: .25rem 0 0;
+  font-weight: 700;
+  color: var(--brand);
+}
+.lead {
+  font-size: clamp(1.02rem, 1.2vw, 1.15rem);
+}
+/* Scroll cue */
+  .scroll-cue {
+  display: inline-block;
+  margin-top: 16px;
+  opacity: .7;
+  text-decoration: none;
+}
+.scroll-cue:hover {
+  opacity: 1;
+}
+@media (max-width: 640px) {
+  
+  .hero-title-row {
+    display:flex;
+    
+}
+}
+
+/* Footer social buttons: smaller + 88% opacity */
+  .footer-actions .btn {
+  padding: 8px 12px;
+  font-size: .95rem;
+  opacity: .88;
+  display: flex;
+  margin-bottom: 12px;
+  margin-right: 20px;
+}
+.footer-actions .btn:hover {
+  opacity: 1;
+}
+
+.btn.fb {
+  background: #3b5998;
+  color: #fff;
+}
+.btn.fb:hover {
+  background: #2d4373;
+}
+
+/* Button ripple (needs the JS below) */
+  .btn {
+  position: relative;
+  overflow: hidden;
+}
+.btn .ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  transform: scale(0);
+  opacity: .3;
+  background: #fff;
+  mix-blend-mode: overlay;
+  transition: transform 500ms ease, opacity 600ms ease;
+}
+.btn.rippling .ripple {
+  transform: scale(1);
+  opacity: 0;
+}
+
+.btn.visitus {
+  color: var(--brand-red);
+}
+
+.btn.visitus:hover {
+  color: var(--brand-red-dark);
+  outline: #ca3439 solid 2px;
+}
+
+/* Card hover lift (subtle) */
+  .bubble, .card {
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.bubble:hover, .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 34px rgba(0,0,0,.08);
+}
+/* Section separators — faint gold line between sections for more division */
+  .section + .section::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92%,1100px);
+  height: 1px;
+  top: 0;
+  background: linear-gradient(90deg, transparent, rgba(199,154,0,.55), transparent);
+}
+.section {
+  position: relative;
+}
+/* --- Buttons --- */
+.btn {
+  display:inline-block;
+  background:var(--brand);
+  color:#fff;
+  padding:12px 18px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.05);
+  box-shadow: var(--shadow);
+  font-weight:700;
+  letter-spacing:.2px;
+}
+.btn:hover {
+  background:var(--brand-600);
+  text-decoration:none;
+  transform:translateY(-1px)
+}
+.btn.outline {
+  background:var(--brand);
+  color:var(--#fff);
+  border:2px solid var(--gold)
+}
+.btn.ghost {
+  background:transparent;
+  color:#0b0b0b;
+  border:2px solid var(--border)
+}
+.btn.small {
+  padding:8px 12px;
+  font-size:.95rem
+}
+/* --- Hero --- */
+.hero {
+  padding:64px 0 40px;
+  background:var(--surface-alt)
+}
+.hero-grid {
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:28px;
+  align-items:center
+}
+.hero-title-row {
+  display:flex;
+  gap:16px;
+  align-items:center;
+  margin-bottom:6px
+}
+.hero-logo {
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#fff;
+  padding:4px
+}
+.motto {
+  color:var(--gold);
+  font-weight:700;
+  margin:4px 0 0
+}
+.hero-cta {
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+  flex-wrap:wrap
+}
+.hero-photo img {
+  border-radius:8px;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow)
+}
+/* --- Sections --- */
+.section {
+  padding:64px 0
+}
+.section.alt {
+  background:var(--surface)
+}
+.two-col {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  align-items:start
+}
+.card, .bubble {
+  background:#fff;
+  border:1px solid var(--border);
+  padding:20px;
+  border-radius:16px;
+  box-shadow:var(--shadow)
+}
+.card.photo img {
+  border-radius:12px
+}
+.leader-note {
+  border-left:4px solid var(--brand);
+}
+/* --- Media --- */
+.media-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  align-items:start
+}
+.ratio-16x9 {
+  position:relative;
+  width:100%;
+  padding-bottom:56.25%;
+  overflow:hidden;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#f3f3f3
+}
+.ratio-16x9 iframe {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0
+}
+/* --- Events flyers --- */
+.flyer-grid {
+  display:grid;
+  grid-template-columns:repeat(2, 2fr);
+  gap:16px
+}
+.flyer img {
+  width:100%;
+  height:auto;
+  border-radius:12px;
+  max-width: 420px;
+}
+/* --- Zoom --- */
+.zoom-grid-top {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:16px
+}
+.zoom-card .meta-list {
+  list-style:none;
+  padding:0;
+  margin:8px 0 16px
+}
+.zoom-card .meta-list li {
+  margin:6px 0
+}
+/* --- Donate --- */
+.donate-buttons {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:8px 0 12px
+}
+.small {
+  font-size:.95rem
+}
+.muted {
+  color:var(--muted)
+}
+/* --- Gallery --- */
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px
+}
+.gallery a {
+  display:block;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--border)
+}
+.gallery img {
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  transition:.25s transform ease
+}
+.gallery a:hover img {
+  transform:scale(1.02)
+}
+/* --- Prayer placeholder --- */
+.placeholder-space {
+  height:220px;
+  border:2px dashed var(--border);
+  border-radius:16px;
+  background:#f8f8f8
+}
+/* --- Footer --- */
+.site-footer.big {
+  background:#0b0b0b;
+  color:#fff;
+  border-top:4px solid var(--brand)
+}
+.site-footer .container {
+  padding-top:20px
+}
+.site-footer a {
+  color:#fff
+}
+.footer-grid {
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:16px;
+  align-items:start
+}
+.site-footer .sub {
+  border-top:1px solid rgba(255,255,255,.12);
+  margin-top:12px;
+  padding:12px 0
+}
+/* --- Utilities --- */
+.center {
+  text-align:center;
+  margin-top:12px
+}
+/* --- Reveal on scroll --- */
+.reveal {
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .5s ease, transform .5s ease
+}
+.reveal.visible {
+  opacity:1;
+  transform:none
+}
+/* --- Responsive --- */
+@media (max-width: 1000px) {
+  
+  .media-grid {
+    grid-template-columns:1fr
+
+}
+.zoom-grid-top {
+  grid-template-columns:1fr
+}
+.flyer-grid {
+  grid-template-columns:1fr 1fr
+}
+.hero-grid {
+  grid-template-columns:1fr
+}
+}
+
+@media (max-width: 640px) {
+  
+  .two-col {
+    grid-template-columns:1fr
+
+}
+.flyer-grid {
+  grid-template-columns:1fr
+}
+.footer-grid {
+  grid-template-columns:1fr
+}
+.nav-toggle {
+  display:inline-block
+}
+.nav-menu {
+  display:none;
+  flex-direction:column;
+  align-items:flex-start;
+  background:#111;
+  position:absolute;
+  right:20px;
+  top:60px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.08)
+}
+.nav-menu.show {
+  display:flex
+}
+.dropdown-menu {
+  position:static;
+  display:block;
+  background:transparent;
+  border:0;
+  padding:0
+}
+.dropdown-menu a {
+  padding:8px 0
+}
+}
+
+/* --- Hero Banner Title across top --- */
+.hero-banner-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(1.4rem, 4.2vw, 3rem);
+  font-weight: 800;
+  letter-spacing: .5px;
+  color: rgba(11,11,11,.9);
+  text-shadow: 0 1px 0 rgba(255,255,255,.45);
+  padding: 8px 16px;
+  pointer-events: none;
+}
+.hero .hero-motto {
+  margin: 0;
+  color: var(--brand);
+}
+.hero .hero-title-row h1.hero-motto {
+  margin: 0;
+}
+.hero {
+  position: relative;
+}
+/* Hero overlay headline (spans entire hero;
+  title above motto) */
+.hero {
+  position: relative;
+}
+.hero-overlay {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: clamp(44px, 4vw, 64px);
+  width: min(100%, 1100px);
+  text-align: center;
+  pointer-events: none;
+  /* don’t block buttons/links below */
+  padding: 0 16px;
+}
+.church-title {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: .3px;
+  font-size: clamp(1.6rem, 4.6vw, 3.4rem);
+  color: var(--ink);
+  text-wrap: balance;
+}
+.hero-overlay .motto {
+  margin: .25rem 0 0;
+  font-weight: 700;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: var(--brand);
+}
+/* optional: subtle gold accent line under the overlay */
+.hero-overlay::after {
+  content: "";
+  display: block;
+  width: 84px;
+  height: 2px;
+  margin: 8px auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold, #C79A00), transparent);
+  opacity: .65;
+}
+/* Placeholder content grids on subpages */
+.grid {
+  display:grid;
+  gap:16px;
+  align-items:start
+}
+.grid.grid-2 {
+  grid-template-columns:repeat(2,1fr)
+}
+.grid.grid-3 {
+  grid-template-columns:repeat(3,1fr)
+}
+@media (max-width: 900px) {
+  
+  .grid.grid-3 {
+    grid-template-columns:repeat(2,1fr)
+
+}
+}
+
+@media (max-width: 600px) {
+  
+  .grid.grid-2, .grid.grid-3 {
+    grid-template-columns:1fr
+
+}
+}
+
+/*button to scroll to top*/
+#scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  /* Prevent clicks when hidden */
+  transition: opacity 0.5s ease-in-out, background-color 0.3s ease;
+}
+#scrollTopBtn:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+#scrollTopBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+  /* Enable interaction when shown */
+}
+/* Show the button when scrolled down 1000px */
+
+/* Frame wraps BOTH title + motto */
+.title-group {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  padding: 2em 4em 2em;
+  /* space around both lines inside the frame */
+  border-radius: 14px;
+  z-index: 1;
+  /* keep content above the frame layers */
+}
+/* Outline frame */
+.title-group::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* hugs padded box */
+  border: 2px solid var(--gold, #C79A00);
+  border-radius: inherit;
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  /* hidden (wiped to the right) */
+  transform: translateZ(0);
+  pointer-events: none;
+}
+/* Optional faint fill behind both lines (comment out for outline-only) */
+.title-group::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(199,154,0,.08), rgba(199,154,0,.04));
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+}
+/* Animate on load */
+body.loaded .title-group::before {
+  animation: title-frame-wipe 900ms cubic-bezier(.22,.61,.36,1) 120ms forwards;
+}
+body.loaded .title-group::after {
+  animation: title-plate-fade 800ms ease 300ms forwards;
+}
+/* subtle pop */
+body.loaded .title-group {
+  animation: title-pop 520ms cubic-bezier(.22,.61,.36,1) 120ms both;
+}
+/* Typography stays the same */
+.church-title {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: .3px;
+  font-size: clamp(1.6rem, 4.6vw, 3.4rem);
+  color: var(--ink);
+  text-wrap: balance;
+}
+.hero-overlay .motto {
+  margin: .35rem 0 0;
+  font-weight: 700;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: var(--brand);
+  /* burgundy */
+}
+/* Keyframes (reuse if already present) */
+@keyframes title-frame-wipe {
+  0% {
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+}
+40% {
+  opacity: 1;
+}
+100% {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+}
+
+@keyframes title-plate-fade {
+  from {
+  opacity: 0;
+}
+to {
+  opacity: .6;
+}
+}
+
+@keyframes title-pop {
+  0% {
+  transform: translateY(2px) scale(.985);
+  letter-spacing: .02em;
+}
+100% {
+  transform: none;
+  letter-spacing: 0;
+}
+}
+
+/* Float-on-hover utilities */
+:root {
+  --float-y: 6px;
+  --float-scale: 1.01;
+  --shadow-float: 0 10px 28px rgba(0,0,0,.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  
+  .float-hover, .img-float {
+    transition: none !important;
+    transform: none !important;
+    
+}
+}
+
+/* subtle hover float for any element */
+.float-hover {
+  transition: transform .35s ease, box-shadow .35s ease;
+  will-change: transform;
+}
+.float-hover:hover {
+  transform: translateY(calc(var(--float-y) * -1)) scale(var(--float-scale));
+  box-shadow: var(--shadow-float);
+}
+/* images float too (site-wide) */
+.hero-photo img,
+.gallery img,
+.flyer img,
+.card img,
+.bubble img {
+  transition: transform .3s ease, box-shadow .3s ease;
+  will-change: transform;
+}
+.hero-photo img:hover,
+.gallery a:hover img,
+.flyer:hover img,
+.card:hover img,
+.bubble:hover img {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0,0,0,.14);
+}
+/* wide gold CTA under Events flyers */
+.btn.gold {
+  background: var(--gold);
+  color: #111;
+  border-color: rgba(0,0,0,.06);
+}
+.btn.gold:hover {
+  filter: brightness(.96);
+  transform: translateY(-1px);
+}
+.btn.wide {
+  display:inline-flex;
+  justify-content:center;
+  min-width:min(100%, 360px);
+  padding:14px 24px;
+  border-radius:14px;
+  font-weight:800;
+  letter-spacing:.2px;
+  color: #ffffff;
+}
+.mt-16 {
+  margin-top:32px;
+}
+/* Section decoration + emphasis for Donate */
+#donate {
+  position:relative;
+  overflow:hidden;
+}
+#donate .container {
+  position:relative;
+}
+/* angled gold bar & burgundy plate (subtle) */
+#donate::before {
+  content:"";
+  position:absolute;
+  top:-40px;
+  left:-60px;
+  width:440px;
+  height:160px;
+  background: var(--gold);
+  opacity:.12;
+  border-radius:16px;
+  transform: rotate(-6deg);
+}
+#donate::after {
+  content:"";
+  position:absolute;
+  bottom:-80px;
+  right:-80px;
+  width:560px;
+  height:220px;
+  background: var(--brand);
+  opacity:.08;
+  border-radius:20px;
+  transform: rotate(5deg);
+}
+/* heading accent */
+#donate h2 {
+  position:relative;
+}
+#donate h2::after {
+  content:"";
+  display:block;
+  width:84px;
+  height:4px;
+  margin-top:6px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  border-radius:6px;
+}
+/* make the donate tiles pop a bit more */
+#donate .card {
+  box-shadow: 0 12px 34px rgba(0,0,0,.08);
+}
+#donate .donate-buttons .btn {
+  box-shadow: 0 10px 26px rgba(139,29,44,.18);
+}
+#donate .donate-buttons .btn.outline {
+  border-width:2px;
+}
+/* --- Zoom: two-column layout with square image --- */
+/* === Zoom grid (3 across + full-width rows) === */
+.zoom-grid {
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+.zoom-card.full {
+  grid-column: 1 / -1;
+  /* span all columns */
+}
+/* Responsive: fall back to 2 cols, then 1 col on narrow screens */
+@media (max-width: 1000px) {
+  
+  .zoom-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    
+}
+}
+
+@media (max-width: 700px) {
+  
+  .zoom-grid {
+    grid-template-columns: 1fr;
+    
+}
+.zoom-card.full {
+  grid-column: 1 / -1;
+}
+}
+
+/* === Gold highlight glow on hover/focus === */
+.zoom-card {
+  position: relative;
+}
+.zoom-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 2px rgba(199,154,0, .35),
+    0 8px 24px rgba(199,154,0, .12);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+.zoom-card:hover::before,
+.zoom-card:focus-within::before {
+  opacity: 1;
+}
+/* Extra hover polish (kept subtle to avoid jitter) */
+.zoom-card {
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.zoom-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0,0,0,.08);
+}
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  
+  .zoom-card {
+    transition: none !important;
+    
+}
+.zoom-card::before {
+  transition: none !important;
+}
+}
+
+/* --- Subtle float-on-hover for prominent images --- */
+/* Float-on-hover for prominent images (now includes hero + zoom icon) */
+.hero-photo img,
+.hero img,
+.card.photo img,
+.flyer img,
+.gallery img {
+  transition: transform .25s ease, box-shadow .25s ease;
+  will-change: transform;
+}
+.hero-photo img:hover,
+.hero img:hover,
+.card.photo img:hover,
+.flyer img:hover,
+.gallery img:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 16px 36px rgba(0,0,0,.10);
+}
+/* --- Stagger support: elements can animate in with a delay --- */
+.media-grid > *,
+.flyer-grid > *,
+.gallery > * {
+  transition-delay: var(--stagger, 0ms);
+}
+/* --- Scroll progress bar --- */
+.scroll-progress {
+  position:fixed;
+  top:0;
+  left:0;
+  height:3px;
+  width:100%;
+  transform-origin:0 0;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--gold), var(--brand));
+  z-index:9999;
+  pointer-events:none;
+}
+/* --- Respect reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  
+  .reveal {
+    transition:none !important;
+    
+}
+.bubble, .card, .hero-photo img, .flyer img, .gallery img {
+  transition:none !important;
+}
+}
+
+/* --- HERO TICKER --- */
+.hero-ticker {
+  --ticker-height: 48px;
+  /* adjust height */
+  --ticker-speed: 90;
+  /* px per second;
+  JS uses this to set duration */
+  background: var(--panel, #fff);
+  border-top: 1px solid var(--border);
+  padding-inline: 12px;
+  height: var(--ticker-height);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+/* Fade the edges so items slide in/out nicely */
+.ticker-viewport {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0, rgba(0,0,0,1) 48px, rgba(0,0,0,1) calc(100% - 48px), rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to right, transparent 0, black 48px, black calc(100% - 48px), transparent 100%);
+}
+.ticker-track {
+  display: inline-flex;
+  white-space: nowrap;
+  gap: 28px;
+  will-change: transform;
+  animation: ticker var(--ticker-duration, 40s) linear infinite;
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .95rem;
+  color: var(--text, #222);
+}
+/* Gold dot with a gentle pulse for fun */
+.ticker-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--gold, #c79a00);
+  box-shadow: 0 0 0 2px rgba(199,154,0,.30);
+  flex: none;
+  animation: tickerPulse 2.4s ease-in-out infinite;
+}
+@keyframes ticker {
+  from {
+  transform: translateX(0);
+}
+to {
+  transform: translateX(-50%);
+}
+/* we duplicate content in JS for a seamless loop */
+}
+
+@keyframes tickerPulse {
+  0% {
+  box-shadow: 0 0 0 0 rgba(199,154,0,.35);
+}
+70% {
+  box-shadow: 0 0 0 8px rgba(199,154,0,0);
+}
+100% {
+  box-shadow: 0 0 0 0 rgba(199,154,0,0);
+}
+}
+
+/* Pause motion for those who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  
+  .ticker-track {
+    animation: none !important;
+    
+}
+.ticker-dot {
+  animation: none !important;
+}
+}
+
+/* anchor ticker to bottom of the hero */
+#home, .hero {
+  position: relative;
+}
+.hero-ticker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  /* above the hero background, below nav if needed */
+}
+/* add bottom space so hero content doesn’t overlap the ticker */
+
+#home, .hero {
+  padding-bottom: calc(var(--ticker-height, 24px) + 6px);
+}
+
+/* Mission & Vision layout polish */
+.mission-vision.two-col {
+  grid-template-columns: minmax(0, 1fr) minmax(0, .65fr);
+  gap: 28px;
+}
+.mission-vision {
+  row-gap: 12px;
+}
+.mission-vision h2 {
+  margin: 0 0 6px;
+}
+.mission-vision .mv-cards,
+.mission-vision .mv-points,
+.mission-vision .mv-columns {
+  margin-top: 16px;
+}
+.mission-vision .card,
+.mission-vision .bubble {
+  padding: 16px;
+}
+.mission-vision .mv-cards .card h3,
+.mission-vision .mv-columns .card h3 {
+  margin-top: 0;
+}
+.mission-vision .bubble {
+  text-align: left;
+}
+.mv-points {
+  text-align: center;
+  margin: 18px;
+}
+/* keep poster aligned nicely;
+  stop sticking on narrow */
+/* Bigger poster on desktop */
+@media (min-width: 1024px) {
+  
+  /* Give the image column more room */
+  .mission-vision.two-col {
+    grid-template-columns: 1.1fr 1.1fr;
+    /* or 1.1fr .9fr if you want the text a bit wider */
+
+}
+.mission-vision .mv-poster {
+  max-width: 540px;
+  /* bump as you like */
+    justify-self: end;
+}
+.mission-vision .mv-poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+}
+
+/* mobile spacing & readability */
+@media (max-width: 640px) {
+  
+  .mission-vision {
+    row-gap: 16px;
+    
+}
+.mission-vision .chip {
+  font-size: .95rem;
+}
+.mission-vision .mv-columns .card ul.tight {
+  padding-left: 1rem;
+}
+}
+
+/* optional: tighter list utility if you want it site-wide */
+ul.tight {
+  margin: .25rem 0 0;
+  padding-left: 1.1rem;
+}
+ul.tight li {
+  margin: .25rem 0;
+}
+/* ===== Full-screen flyer hero (overrides) ===== */
+.hero-flyer {
+  --brand-red: #C82127;
+  /* flyer red */
+  --brand-red-dark: #8E171B;
+  --hl-yellow: #fff08a;
+  --ticker-h: 44px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* fills the screen */
+  padding-bottom: var(--ticker-h);
+  /* room for ticker */
+  position: relative;
+}
+/* Red band */
+.hero-flyer .band {
+  background: var(--brand-red);
+  color: #fff;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 36px 28px;
+  /* a bit larger */
+  border-radius: 12px;
+  overflow: hidden;
+}
+/* Bigger logo */
+.hero-flyer .seal {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+}
+/* Headline + service line larger */
+.hero-flyer h1 {
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  font-size: clamp(1.9rem, 3.8vw + 1rem, 3.4rem);
+}
+.hero-flyer .service {
+  margin: 6px 0 0;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1.05rem, 1.3vw + .6rem, 1.35rem);
+}
+/* Corner art + small Join us */
+.hero-flyer .corner {
+  display: grid;
+  align-items: start;
+  justify-items: end;
+  gap: 8px;
+}
+.hero-flyer .sketch {
+  width: 360px;
+  height: auto;
+  object-fit: contain;
+}
+.hero-flyer .badge {
+  background: var(--brand-red-dark);
+  color:#fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: .85rem;
+  font-weight: 800;
+}
+.hero-flyer .mini-join {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background: var(--brand-red-dark);
+  color:#fff;
+  border-radius:999px;
+  padding:6px 12px;
+  font-weight:800;
+  text-decoration:none;
+}
+.hero-flyer .mini-join img {
+  width:18px;
+  height:18px;
+}
+/* Chips row */
+.hero-flyer .chips {
+  margin-top: 10px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.mission-vision .chip.as-btn,
+.hero-flyer .chip.as-btn {
+  /* reuse your button feel */
+  background: var(--brand-red);
+  color:#fff;
+  border: 1px solid rgba(0,0,0,.05);
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  transition: transform .25s ease, box-shadow .25s ease, background .2s ease;
+}
+.hero-flyer .chip.as-btn:hover {
+  background: var(--brand-red-dark);
+  transform: translateY(-1px);
+}
+.hero-flyer .chip.as-btn.big {
+  font-size: 1rem;
+}
+/* Details row + uniform buttons */
+.hero-flyer .details {
+  margin-top: 16px;
+}
+.hero-flyer .details.eq .detail {
+  display:flex;
+  flex-direction:column;
+  gap:.35rem;
+}
+.hero-flyer .detail {
+  padding: 18px;
+}
+.hero-flyer .detail h3 {
+  margin: 0 0 6px;
+}
+.hero-flyer .details .btn.cta {
+  margin-top: auto;
+  min-width: 220px;
+  /* same width buttons */
+  text-align: center;
+}
+/* Description */
+.hero-flyer .blurb {
+  margin-top: 12px;
+}
+.hero-flyer .blurb p {
+  margin: 0;
+}
+/* Yellow highlight underline */
+.hl {
+  background: linear-gradient(transparent 55%, var(--hl-yellow) 0);
+  padding: 0 2px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  
+  .hero-flyer .band {
+    grid-template-columns: 1fr auto;
+    
+}
+.hero-flyer .seal {
+  width: 92px;
+  height: 92px;
+}
+}
+
+@media (max-width: 640px) {
+  
+  .hero-flyer {
+    --ticker-h: 40px;
+    
+}
+.hero-flyer .details.grid {
+  grid-template-columns: 1fr;
+}
+.hero-flyer .sketch {
+  width: 240px;
+}
+.hero-flyer .details .btn.cta {
+  width: 100%;
+  min-width: 0;
+}
+
+}
+
+/* End of styles.css */
+
+
+/* ===== HOMEPAGE FLYER HERO – REFINEMENTS (kept at the very end) ===== */
+.hero-flyer{
+  --brand-red: #C82127;
+  --brand-red-dark: #8E171B;
+  --hl-yellow: #fff08a;
+  --ticker-h: 44px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-bottom: var(--ticker-h);
+  position: relative;
+}
+
+.hero-flyer .band{
+  background: var(--brand-red);
+  color: #fff;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 40px 30px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Increase logo + church illustration to ~240px on desktop */
+.hero-flyer .seal{ width: 240px; height: 240px; object-fit: contain; }
+.hero-flyer .sketch{ width: 240px; height: auto; object-fit: contain; }
+
+/* Headline + service line larger */
+.hero-flyer h1{
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  font-size: clamp(2.2rem, 3.6vw + 1rem, 3.8rem);
+}
+.hero-flyer .service{
+  margin: 8px 0 0;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(1.05rem, 1.4vw + .6rem, 1.4rem);
+}
+
+/* Three 'buttons' (chips) – same size, interactive but clearly not links */
+.hero-flyer .chips{
+  margin-top: 12px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hero-flyer .chip.as-btn{
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,.24);
+  border-radius: 999px;
+  padding: 12px 22px;
+  min-width: 168px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  letter-spacing: .2px;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+  cursor: default;
+  text-decoration: none;
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
+}
+.hero-flyer .chip.as-btn:hover{
+  background: rgba(255,255,255,.18);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.18);
+}
+
+/* Description lives inside the red banner, below chips */
+.hero-flyer .banner-desc{
+  margin-top: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.hero-flyer .banner-desc em{ font-style: normal; font-weight: 800; }
+
+/* Detail cards buttons – equal sizing (full width) */
+.hero-flyer .details{ margin-top: 16px; }
+.hero-flyer .details .btn.cta{
+  width: 100%;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+/* Ticker at bottom */
+.hero-flyer .ticker{
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: var(--ticker-h);
+  display: flex; align-items: center;
+  background: #fff; color: #111;
+  border-top: 1px solid rgba(0,0,0,.08);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  overflow: hidden;
+}
+.hero-flyer .ticker .track{
+  display: inline-block;
+  white-space: nowrap;
+  animation: ticker-scroll 30s linear infinite;
+  will-change: transform;
+}
+.hero-flyer .ticker span{ padding-right: 2rem; }
+@keyframes ticker-scroll{
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Responsive constraints for the bigger images */
+@media (max-width: 1000px){
+  .hero-flyer .seal{ width: 160px; height: 160px; }
+  .hero-flyer .sketch{ width: 160px; }
+  .hero-flyer .band{ grid-template-columns: 1fr auto; }
+}
+@media (max-width: 640px){
+  .hero-flyer{ --ticker-h: 40px; }
+  .hero-flyer .seal{ width: 120px; height: 120px; }
+  .hero-flyer .sketch{ width: 120px; }
+  .hero-flyer .details.grid{ grid-template-columns: 1fr; }
+}
+
+/* Equalize card heights + button sizes */
+.hero-flyer .details { 
+  gap: 16px; 
+  align-items: stretch;         /* stretch all cards to the same track height */
+  grid-auto-rows: 1fr;          /* each row’s cards share equal height */
+}
+.hero-flyer .detail { 
+  display: flex; 
+  flex-direction: column; 
+}
+.hero-flyer .detail .btn.cta{
+  margin-top: auto;
+  width: 100%;
+  min-height: 48px;          /* identical height */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+/* Wide “Join Us” button (same height, wider footprint) */
+.join-cta{
+  min-height: 48px;             /* same height as .btn.cta above */
+  gap: 12px;
+  align-items: center;
+}
+.join-cta img{
+  width: 28px; height: 28px; 
+  border-radius: 6px;
+}
+.join-cta span{ line-height: 1.2; }
+
+/* Make the wide button fill on small screens */
+@media (max-width: 700px){
+  .btn.wide { min-width: 0; width: 100%; }
+}
+
+/* === Home hero: 4 cards in one row, equal height === */
+.hero-flyer .details.grid.grid-3{
+  /* override the .grid-3 utility to be 4-up on desktop */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;               /* make all cards stretch to the row height */
+}
+
+/* Make each card a vertical flex box so footer content sits at the bottom */
+.hero-flyer .detail{
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+}
+
+/* Uniform CTA buttons in the first three cards */
+.hero-flyer .detail .btn.cta{
+  margin-top: auto;                   /* pins button to the bottom of the card */
+  width: 100%;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+/* Fourth card: image-only, same visual baseline as CTAs */
+.hero-flyer .detail .homeheroimg{
+  margin-top: auto;                   /* pushes image to the bottom like the buttons */
+  align-self: center;
+  width: 100%;
+  max-width: 240px;                   /* adjust as you like */
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+/* Responsive: 2-up on tablet, 1-up on phones */
+@media (max-width: 1024px){
+  .hero-flyer .details.grid.grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 640px){
+  .hero-flyer .details.grid.grid-3{ grid-template-columns: 1fr; }
+}
+
+/* === TICKER: anchor to bottom of the hero without extra scroll === */
+
+/* Make the home section a flex column that fills the viewport */
+section#home.hero,
+section#home.hero.hero-flyer{
+  display: flex;
+  flex-direction: column;
+  /* If you have a sticky header, use the calc() version: 
+     min-height: calc(100vh - var(--header-h, 0px)); */
+  min-height: 100vh;
+}
+
+/* Push the ticker to the bottom naturally (no absolute positioning) */
+.hero-ticker{
+  position: static !important;
+  margin-top: auto;   /* this is the key */
+}
+
+/* Avoid stacked paddings that add extra space before the ticker */
+#home, .hero, .hero-flyer{
+  padding-bottom: 0 !important;
+}
+
+/* === HOME: remove top white space and start content at top === */
+
+/* Stop vertical centering just for the home section */
+section#home.full-height{
+  align-items: flex-start !important;
+}
+
+/* Remove stacked top offsets */
+section#home.hero{
+  padding-top: 0 !important;      /* kills the 72px top padding */
+}
+.hero-overlay{
+  top: 0 !important;              /* no extra offset */
+}
+
+/* If you want a tiny breathing room under the sticky header on wide screens, 
+   uncomment the block below for ~8px of space. */
+/*
+@media (min-width: 700px){
+  section#home.hero{ padding-top: 8px !important; }
+  .hero-overlay{ top: 8px !important; }
+}
+*/
+
+/* Keep ticker pinned but not overlapping content */
+.hero-ticker{
+  position: static !important;     /* from the earlier fix */
+  margin-top: auto;                /* pushes ticker to bottom of the hero */
+}
+
+/* Footer logo + text side by side */
+.footer-left {
+  display: flex;
+  align-items: center;       /* vertical centering with the text */
+  gap: 16px;                 /* space between logo and text */
+}
+
+.footer-logo {
+  max-width: 240px;          /* adjust size */
+  height: auto;
+  flex-shrink: 0;            /* prevent shrinking on smaller screens */
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* aligns text with logo middle */
+}
+
+/* On smaller screens, stack logo above text */
+@media (max-width: 1200px) {
+  .footer-left {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-logo {
+    margin-bottom: 12px;
+  }
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.contact-form input,
+.contact-form textarea {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 1rem;
+}
+.contact-form button {
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+.youtube-thumbnail {
+  max-width: 60px;
+  padding: 6px;
+  align-self: center;
+}
+
+.youtube-thumbnail:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.18);
+}
