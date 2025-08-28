@@ -1990,3 +1990,88 @@ section#home.hero{
 @media (max-width:900px){
   .zoom-grid.v2{ grid-template-columns:1fr; }
 }
+/* ==== Mobile hero tweaks (no HTML changes) ==== */
+@media (max-width: 640px) {
+  /* Make the big red band a positioned container for absolute children */
+  .hero-flyer .band {
+    position: relative;                 /* anchor for abs-pos elements */
+    padding-bottom: 120px;              /* room for bottom-left/right items */
+  }
+
+  /* 1) Bigger logo on mobile */
+  .hero-flyer .seal {
+    width: 180px;                       /* was ~120px in your mobile rules */
+    height: 180px;
+  }
+
+  /* 2) Let us position the individual corner items directly on the band */
+  .hero-flyer .corner {
+    position: static;                   /* stop being the positioning context */
+    display: contents;                  /* don’t add extra layout chrome */
+  }
+
+  /* 3) Church icon bottom-left, large */
+  .hero-flyer .sketch {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    width: 168px;                       /* nice and big */
+    height: auto;
+  }
+
+  /* 4) Stack the small “Join us” and “ALL ARE WELCOME!” at bottom-right */
+  .hero-flyer .mini-join {
+    position: absolute;
+    right: 12px;
+    bottom: 56px;                       /* sits above the badge */
+  }
+  .hero-flyer .badge {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;                       /* directly below mini-join */
+    display: inline-block;              /* ensure proper box for stacking */
+  }
+
+  /* 5) Give the hero’s button row more space above the ticker */
+  .hero-flyer .details {
+    margin-bottom: calc(var(--ticker-h, 44px) + 14px);
+  }
+}
+@media (max-width: 640px) {
+  footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Ensure hero logo shows and stays big on mobile */
+@media (max-width: 640px) {
+  .hero-flyer .seal {
+    width: 180px;           /* your desired larger size */
+    height: 180px;
+    position: relative;     /* create a stacking context */
+    z-index: 2;             /* keep above corner items */
+  }
+}
+
+/* Adjust donation graphics layout */
+#donation .donation-graphics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;               /* space between the two graphics */
+  justify-content: center;
+}
+#donation .donation-graphics img,
+#donation .donation-graphics iframe {
+  max-width: 100%;
+  height: auto;
+  flex: 1 1 300px;         /* each graphic takes equal flexible space */
+}
+
+/* On narrow screens, stack with generous spacing */
+@media (max-width: 640px) {
+  #donation .donation-graphics {
+    flex-direction: column;
+    gap: 40px;             /* more breathing room when stacked */
+  }
+}
