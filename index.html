@@ -15,7 +15,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
+<script>
+  window.addEventListener("load", function() {
+    // wait ~1s, then fade out loader
+    setTimeout(function(){
+      document.getElementById("loader").classList.add("fade-out");
+    }, 450); // 450ms = 0.45 second
+  });
+</script>
 <body>
+
+<!-- Loading Screen -->
+<div id="loader">
+  <img src="assets/logo.png" alt="Church Logo" class="loader-logo">
+</div>
+
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="container nav">

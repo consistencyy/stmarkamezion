@@ -1,3 +1,33 @@
+/* Fullscreen loader overlay */
+#loader {
+  position: fixed;
+  inset: 0; /* top, right, bottom, left = 0 */
+  background: #fff; /* or var(--surface, #fff) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* above everything */
+}
+
+/* Spinning logo */
+.loader-logo {
+  width: 120px; /* adjust size as needed */
+  height: auto;
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Hide loader smoothly */
+#loader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s ease, visibility .4s ease;
+}
+
 /* === Theme: White background, black nav, burgundy buttons, gold accents === */
 :root {
   --bg:#ffffff;
