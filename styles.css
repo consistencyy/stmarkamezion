@@ -2217,3 +2217,88 @@ section#home.hero{
 /* if your chips are very tall (e.g., 120px), add a little breathing room */
 .mv__chips { margin: 24px 0; }
 
+
+/* About dropdown: remove bullets + indent */
+.dropdown-menu,
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu {
+  margin: 0;
+  padding-left: 0;   /* prevent default left indent */
+  /* keep your existing padding as-is, or set a clean vertical rhythm: */
+  /* padding: 8px 0; */
+}
+
+/* Mobile, in case a different padding is applied there */
+@media (max-width: 640px) {
+  .dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+}
+
+/* ===== Board section (consolidated & centered) ===== */
+#board .board-banner{
+  display:flex;
+  justify-content:center;
+  margin:8px 0 18px;
+}
+#board .board-banner img{
+  height:clamp(160px,28vh,260px); /* thin vertical banner */
+  width:auto;
+  border-radius:12px;
+  box-shadow:var(--shadow,0 10px 30px rgba(0,0,0,.08));
+  border:1px solid var(--border,#e6e8eb);
+}
+
+#board .board-subhead{
+  margin:18px 0 10px;
+  font-size:clamp(1.1rem,1.4vw,1.35rem);
+  color:var(--brand,#8B1D2C);
+}
+
+/* Person cards: fill the card, center everything */
+#board .board-grid .card.person{
+  display:flex;              /* override any previous grid layout */
+  flex-direction:column;
+  align-items:center;        /* center content horizontally */
+  text-align:center;         /* center text too */
+  gap:8px;
+}
+
+/* Inner content wrapper */
+#board .board-grid .card.person .text{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* Headshot */
+#board .board-grid .card.person .board-photo{
+  display:block;
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  border-radius:12px;
+  border:1px solid var(--border,#e6e8eb);
+  box-shadow:var(--shadow,0 10px 30px rgba(0,0,0,.08));
+  margin:6px 0 8px;
+}
+
+/* Tight, readable spacing */
+#board .board-grid .card.person h3{ margin:0 0 6px; }
+#board .board-grid .card.person p{  margin:0 0 6px; }
+
+/* Responsive tweaks */
+@media (max-width:700px){
+  #board .board-banner img{
+    height:clamp(140px,24vh,220px);
+  }
+  #board .board-grid .card.person .board-photo{
+    width:96px; height:96px; border-radius:10px;
+  }
+}
