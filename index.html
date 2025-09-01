@@ -136,23 +136,30 @@
           </article>
 
       <article class="card detail">
-        <h3>Contact Us</h3>
-        <form action="https://formspree.io/f/your-form-id" method="POST" class="contact-form">
-          <label>
-            <span>Name</span>
-            <input type="text" name="name" required>
-          </label>
-          <label>
-            <span>Email</span>
-            <input type="email" name="_replyto" required>
-          </label>
-          <label>
-            <span>Message</span>
-            <textarea name="message" rows="3" required></textarea>
-          </label>
-          <button type="submit" class="btn cta">Send Message</button>
-        </form>
+            <form name="contact" method="POST" data-netlify="true" class="contact-form">
+              <!-- Netlify requires this hidden field -->
+              <input type="hidden" name="form-name" value="contact">
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
+              <label>
+                <span>Email</span>
+                <input type="email" name="email" autocomplete="email" required>
+              </label>
+              <label>
+                <span>Message</span>
+                <textarea name="message" rows="3" required></textarea>
+              </label>
+
+              <!-- Uncomment to show reCAPTCHA v2 widget managed by Netlify -->
+              <!-- <div data-netlify-recaptcha="true"></div> -->
+
+              <button type="submit" class="btn cta">Send Message</button>
+              <p class="form-status" aria-live="polite"></p>
+            </form>
       </article>
+
     </div>
 
   <!-- Bottom ticker -->
@@ -297,7 +304,7 @@
       <div class="container">
         <h2>Gallery</h2>
         <div class="gallery">
-          <a href="assets/gallery/1.jpg" target="_blank" rel="noopener"><img src="assets/gallery/1.jpg" alt="Church life photo 1"></a><a href="assets/gallery/2.jpg" target="_blank" rel="noopener"><img src="assets/gallery/2.jpg" alt="Church life photo 2"></a><a href="assets/gallery/3.jpg" target="_blank" rel="noopener"><img src="assets/gallery/3.jpg" alt="Church life photo 3"></a><a href="assets/gallery/4.jpg" target="_blank" rel="noopener"><img src="assets/gallery/4.jpg" alt="Church life photo 4"></a><a href="assets/gallery/5.jpg" target="_blank" rel="noopener"><img src="assets/gallery/5.jpg" alt="Church life photo 5"></a><a href="assets/gallery/6.jpg" target="_blank" rel="noopener"><img src="assets/gallery/6.jpg" alt="Church life photo 6"></a><a href="assets/gallery/7.jpg" target="_blank" rel="noopener"><img src="assets/gallery/7.jpg" alt="Church life photo 7"></a><a href="assets/gallery/8.jpg" target="_blank" rel="noopener"><img src="assets/gallery/8.jpg" alt="Church life photo 8"></a>
+          <a href="assets/gallery/1.jpg" target="_blank" rel="noopener"><img src="assets/gallery/1.jpg" alt="Church life photo 1"></a><a href="assets/gallery/2.jpg" target="_blank" rel="noopener"><img src="assets/gallery/2.jpg" alt="Church life photo 2"></a><a href="assets/gallery/3.jpg" target="_blank" rel="noopener"><img src="assets/gallery/3.jpg" alt="Church life photo 3"></a><a href="assets/gallery/4.jpg" target="_blank" rel="noopener"><img src="assets/gallery/4.jpg" alt="Church life photo 4"></a>
         </div>
       </div>
     </section>
@@ -323,10 +330,7 @@
 <section id="board" class="section reveal">
   <div class="container">
     <h1>Our Board Members</h1>
-
-    <!-- Thin vertical banner under title -->
     <div class="board-banner">
-      <!-- Replace with your actual banner image -->
       <img src="assets/board/banner-vertical.png" alt="St. Mark AMEZ Church Board Banner">
     </div>
 
