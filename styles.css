@@ -890,31 +890,6 @@ to {
 #donate .container {
   position:relative;
 }
-/* angled gold bar & burgundy plate (subtle) */
-#donate::before {
-  content:"";
-  position:absolute;
-  top:-40px;
-  left:-60px;
-  width:440px;
-  height:160px;
-  background: var(--gold);
-  opacity:.12;
-  border-radius:16px;
-  transform: rotate(-6deg);
-}
-#donate::after {
-  content:"";
-  position:absolute;
-  bottom:-80px;
-  right:-80px;
-  width:560px;
-  height:220px;
-  background: var(--brand);
-  opacity:.08;
-  border-radius:20px;
-  transform: rotate(5deg);
-}
 /* heading accent */
 #donate h2 {
   position:relative;
@@ -2366,19 +2341,17 @@ section#home.hero{
 }
 
 /* Ensure excluded sections cover the wallpaper */
-.hero-flyer,            /* your main hero section */
-#donate,                /* donation page section */
+.hero-flyer,            /* hero */
 .site-footer, footer {  /* footer */
   position: relative;
   background: #fff;     /* or your section’s own bg color */
 }
 
 /* Optional: soften the wallpaper for readability */
-.main-content, section.section:not(#donate) {
+.main-content {
   position: relative;
 }
-.main-content::before,
-section.section:not(#donate)::before {
+.main-content::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -2392,4 +2365,15 @@ section.section:not(#donate)::before {
 /* iOS performance fallback (fixed layers can be janky on older Safari) */
 @supports (-webkit-touch-callout: none) {
   .site-wallpaper { background-attachment: scroll; }
+}
+
+/* Hide the full-screen wallpaper on mobile */
+@media (max-width: 640px) {
+  .site-wallpaper { display: none !important; }
+  body { background: #fff; } /* clean fallback */
+}
+
+/* Optional: also disable for data-saver users */
+@media (prefers-reduced-data: reduce) {
+  .site-wallpaper { display: none !important; }
 }
