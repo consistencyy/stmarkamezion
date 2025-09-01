@@ -2346,3 +2346,50 @@ section#home.hero{
 @media (max-width: 640px){
   .padlet-embed{ --padlet-h: 72vh; }
 }
+
+/* ===== Global site wallpaper (excludes hero, donate, footer) ===== */
+:root {
+  --wallpaper: url("assets/background.jpg"); /* put your image here */
+}
+
+/* Fixed full-screen layer behind the page */
+.site-wallpaper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;                 /* behind all content */
+  background-image: var(--wallpaper);
+  background-size: cover;       /* stretch across the full screen */
+  background-repeat: no-repeat;
+  background-position: left center; /* left-heavy art looks best centered-left */
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Ensure excluded sections cover the wallpaper */
+.hero-flyer,            /* your main hero section */
+#donate,                /* donation page section */
+.site-footer, footer {  /* footer */
+  position: relative;
+  background: #fff;     /* or your section’s own bg color */
+}
+
+/* Optional: soften the wallpaper for readability */
+.main-content, section.section:not(#donate) {
+  position: relative;
+}
+.main-content::before,
+section.section:not(#donate)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(transparent, transparent); /* no tint by default */
+  /* Example subtle tint (uncomment if text needs contrast):
+  background: rgba(255,255,255,0.04);
+  */
+}
+
+/* iOS performance fallback (fixed layers can be janky on older Safari) */
+@supports (-webkit-touch-callout: none) {
+  .site-wallpaper { background-attachment: scroll; }
+}
