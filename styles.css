@@ -2302,3 +2302,47 @@ section#home.hero{
     width:96px; height:96px; border-radius:10px;
   }
 }
+
+/* ===== Padlet embed (boxed, responsive, theme-aligned) ===== */
+.padlet-embed{
+  --padlet-h: clamp(460px, 70vh, 820px);
+  border: 1px solid var(--border, #e6e8eb);
+  border-radius: 12px;
+  background: var(--surface-alt, #f7f7f7);
+  overflow: hidden;
+  box-shadow: var(--shadow, 0 10px 30px rgba(0,0,0,.08));
+}
+
+.padlet-embed iframe{
+  display: block;
+  width: 100%;
+  height: var(--padlet-h);
+  border: 0;
+}
+
+/* keep the attribution tidy and right-aligned */
+.padlet-embed .padlet-attrib{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 28px;
+  padding-inline: 8px;
+  background: rgba(0,0,0,.02);
+}
+
+.padlet-embed .padlet-attrib img{
+  display: block;
+}
+
+/* optional: full-bleed variant (uncomment to span the whole screen)
+.padlet-embed.is-fullbleed{
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+}
+*/
+
+/* mobile tuning */
+@media (max-width: 640px){
+  .padlet-embed{ --padlet-h: 72vh; }
+}
