@@ -2194,3 +2194,26 @@ section#home.hero{
   justify-content: center;
   margin-bottom: calc(var(--ticker-h, 8px) + 4px); /* room for ticker */
 }
+
+/* ===== MV rows: no bullets, larger, uppercase lines ===== */
+.mv__rows {
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 8px;                 /* space between rows */
+  margin: 0;
+  padding: 0;
+}
+
+.mv__row,
+.mv__row--solo {
+  text-transform: uppercase;
+  font-weight: 450;
+  letter-spacing: .3px;
+  line-height: 1.35;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem); /* larger text */
+  margin: 0;                /* behave like list rows, no bullets */
+}
+
+/* if your chips are very tall (e.g., 120px), add a little breathing room */
+.mv__chips { margin: 24px 0; }
+
