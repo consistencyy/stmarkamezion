@@ -1355,18 +1355,6 @@ ul.tight li {
   padding: 0 2px;
 }
 
-/* Responsive tweaks */
-@media (max-width: 900px) {
-  
-  .hero-flyer .band {
-    grid-template-columns: 1fr auto;
-    
-}
-.hero-flyer .seal {
-  width: 92px;
-  height: 92px;
-}
-}
 
 @media (max-width: 640px) {
   
@@ -1416,7 +1404,6 @@ ul.tight li {
 }
 
 /* Increase logo + church illustration to ~240px on desktop */
-.hero-flyer .seal{ width: 240px; height: 240px; object-fit: contain; }
 .hero-flyer .sketch{ width: 240px; height: auto; object-fit: contain; }
 
 /* Headline + service line larger */
@@ -1510,13 +1497,11 @@ ul.tight li {
 
 /* Responsive constraints for the bigger images */
 @media (max-width: 1000px){
-  .hero-flyer .seal{ width: 160px; height: 160px; }
   .hero-flyer .sketch{ width: 160px; }
   .hero-flyer .band{ grid-template-columns: 1fr auto; }
 }
 @media (max-width: 640px){
   .hero-flyer{ --ticker-h: 40px; }
-  .hero-flyer .seal{ width: 120px; height: 120px; }
   .hero-flyer .sketch{ width: 120px; }
   .hero-flyer .details.grid{ grid-template-columns: 1fr; }
 }
@@ -2003,12 +1988,6 @@ section#home.hero{
     padding-bottom: 120px;              /* room for bottom-left/right items */
   }
 
-  /* 1) Bigger logo on mobile */
-  .hero-flyer .seal {
-    width: 180px;                       /* was ~120px in your mobile rules */
-    height: 180px;
-  }
-
   /* 2) Let us position the individual corner items directly on the band */
   .hero-flyer .corner {
     position: static;                   /* stop being the positioning context */
@@ -2046,16 +2025,6 @@ section#home.hero{
   footer {
     padding-left: 16px;
     padding-right: 16px;
-  }
-}
-
-/* Ensure hero logo shows and stays big on mobile */
-@media (max-width: 640px) {
-  .hero-flyer .seal {
-    width: 180px;           /* your desired larger size */
-    height: 180px;
-    position: relative;     /* create a stacking context */
-    z-index: 2;             /* keep above corner items */
   }
 }
 
