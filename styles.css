@@ -2164,7 +2164,7 @@ section#home.hero{
 .hero-flyer .details.container{
   max-width: 99%;       /* cancel the 1100px cap */
   width: 100%;              /* fill the section */
-  margin-inline: 12px;         /* neutralize auto-centering from .container */
+  margin-inline: 0;         /* neutralize auto-centering from .container */
   padding-left: 8px;          /* optional: remove gutters for true edge-to-edge */
   padding-right: 8px;
   align-items: center;
