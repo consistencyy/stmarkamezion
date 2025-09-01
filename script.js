@@ -1,4 +1,3 @@
-
 // Nav toggle
 const toggle = document.querySelector('.nav-toggle');
 const menu = document.querySelector('#nav-menu');
@@ -45,23 +44,6 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
   els.forEach(el => io.observe(el));
 })();
 
-// Parallax hero photo (subtle)
-(function(){
-  const photo = document.querySelector('.hero-photo img');
-  if (!photo) return;
-  let lastY = 0, ticking = false;
-  window.addEventListener('scroll', () => {
-    lastY = window.scrollY || 0;
-    if (!ticking){
-      window.requestAnimationFrame(() => {
-        const dy = Math.min(40, lastY * 0.08);
-        photo.style.transform = 'translateY(' + dy + 'px) scale(1.02)';
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-})();
 
 // Button ripple
 document.addEventListener('click', (e) => {

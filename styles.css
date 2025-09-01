@@ -39,7 +39,7 @@
   --brand:#8B1D2C;
   /* burgundy */
   --brand-600:#6f1623;
-  --gold:#c79200;
+  --gold:#f0b30c;
   /* gold accent */
   --border:#e6e8eb;
   --shadow:0 10px 30px rgba(0,0,0,.08);
@@ -2187,13 +2187,22 @@ section#home.hero{
 }
 
 /* ===== Board section (consolidated & centered) ===== */
+.board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;          /* breathing room on small screens */
+}
+
 #board .board-banner{
   display:flex;
   justify-content:center;
   margin:8px 0 18px;
 }
+
 #board .board-banner img{
-  height:clamp(160px,28vh,260px); /* thin vertical banner */
+  height:clamp(260px,32vh,360px); /* thin vertical banner */
   width:auto;
   border-radius:12px;
   box-shadow:var(--shadow,0 10px 30px rgba(0,0,0,.08));
@@ -2205,7 +2214,6 @@ section#home.hero{
   font-size:clamp(1.1rem,1.4vw,1.35rem);
   color:var(--brand,#8B1D2C);
 }
-
 /* Person cards: fill the card, center everything */
 #board .board-grid .card.person{
   display:flex;              /* override any previous grid layout */
@@ -2213,6 +2221,9 @@ section#home.hero{
   align-items:center;        /* center content horizontally */
   text-align:center;         /* center text too */
   gap:8px;
+  width: clamp(120px, 50vh, 800px);  max-width: 320px;          /* constrain max width */
+  padding: 16px 12px 20px;
+  margin: 0 0 16px;
 }
 
 /* Inner content wrapper */
@@ -2242,7 +2253,7 @@ section#home.hero{
 /* Responsive tweaks */
 @media (max-width:700px){
   #board .board-banner img{
-    height:clamp(140px,24vh,220px);
+    height:clamp(220px,24vh,360px);
   }
   #board .board-grid .card.person .board-photo{
     width:96px; height:96px; border-radius:10px;
