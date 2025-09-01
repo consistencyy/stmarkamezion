@@ -117,7 +117,7 @@ a:hover {
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
+  gap:26px;
   min-height:64px
 }
 .brand {
@@ -148,7 +148,9 @@ a:hover {
   gap:16px;
   margin:0;
   padding:0;
-  align-items:center
+  align-items:center;
+  margin-top: 12px;
+  margin-bottom: 8px;
 }
 .nav-menu>li {
   position:relative
