@@ -700,11 +700,11 @@ section[id] {
 /*button to scroll to top*/
 #scrollTopBtn {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 44px;
+  right: 44px;
   z-index: 99;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border: none;
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.4);
@@ -2514,7 +2514,7 @@ h3 { margin: 24px 0 8px; font-size: clamp(1.1rem, 2vw, 1.3rem); }
     padding: 10px 12px;                         /* slimmer pill to fit next to logo */
   }
   .hero-flyer .banner-desc {
-    padding-bottom: 24px;
+    padding-bottom: 12px;
     margin-bottom: 12px;
   }
   .hero-flyer .corner .badge, .hero-flyer .corner .mini-join {
@@ -2524,6 +2524,7 @@ h3 { margin: 24px 0 8px; font-size: clamp(1.1rem, 2vw, 1.3rem); }
   .hero-flyer .band-inner {
     padding-bottom: 16px;
     margin-bottom: 12px;
+    margin-top: 12px;  /* space above the chips */
   }
 }
 
