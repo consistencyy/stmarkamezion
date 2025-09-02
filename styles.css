@@ -2338,7 +2338,7 @@ section#home.hero{
   background-image: var(--wallpaper);
   background-size: cover;       /* stretch across the full screen */
   background-repeat: no-repeat;
-  background-position: left center; /* left-heavy art looks best centered-left */
+  background-position: center top; /* left-heavy art looks best centered-left */
   pointer-events: none;
   will-change: transform;
 }
@@ -2364,23 +2364,6 @@ section#home.hero{
   background: rgba(255,255,255,0.04);
   */
 }
-
-/* iOS performance fallback (fixed layers can be janky on older Safari) */
-@supports (-webkit-touch-callout: none) {
-  .site-wallpaper { background-attachment: scroll; }
-}
-
-/* Hide the full-screen wallpaper on mobile */
-@media (max-width: 640px) {
-  .site-wallpaper { display: none !important; }
-  body { background: #fff; } /* clean fallback */
-}
-
-/* Optional: also disable for data-saver users */
-@media (prefers-reduced-data: reduce) {
-  .site-wallpaper { display: none !important; }
-}
-
 /* Hide any element toggled with [hidden] */
 [hidden] { display: none !important; }
 
