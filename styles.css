@@ -2426,6 +2426,7 @@ h3 { margin: 24px 0 8px; font-size: clamp(1.1rem, 2vw, 1.3rem); }
   aspect-ratio: 16 / 9;          /* rectangular space */
   object-fit: cover;
 }
+
 .float-right figcaption {
   font-size: .9rem;
   opacity: .75;
@@ -2440,10 +2441,15 @@ h3 { margin: 24px 0 8px; font-size: clamp(1.1rem, 2vw, 1.3rem); }
   border-left: 4px solid currentColor;
   border-right: 4px solid currentColor;
   background: rgba(0,0,0,.03);
-  text-shadow:
-    0 0 4px #fff,        /* close white glow */ 
-    0 0 12px #fff2a9;    /* stronger golden outer glow */
 }
+
+.pullquote:hover {
+  transition: 0.2s;
+  text-shadow:
+  0 0 4px #fff,        /* close white glow */ 
+  0 0 24px #ffe96d;    /* stronger golden outer glow */
+}
+
 .standout {
   letter-spacing: .04em;
   font-weight: 800;
