@@ -108,7 +108,7 @@ a:hover {
   position:sticky;
   top:0;
   z-index:10;
-  background-color: rgba(0, 0, 0, 0.88);
+  background-color: rgba(0, 0, 0, 0.91);
   color:#fff;
   border-bottom:1px solid rgba(255,255,255,.08);
   backdrop-filter:saturate(140%) blur(8px);
@@ -408,7 +408,7 @@ section[id] {
   border-radius:12px
 }
 .leader-note {
-  border-left:4px solid var(--brand);
+  border-left:4px solid #C82127;
 }
 /* --- Media --- */
 .media-grid {
@@ -593,8 +593,11 @@ section[id] {
   display:block;
   background:transparent;
   border:0;
-  padding:0
+  padding:0;
 }
+
+.dropdown-menu[hidden] { display: none !important; }
+
 .dropdown-menu a {
   padding:8px 0
 }
@@ -1229,7 +1232,14 @@ ul.tight li {
 }
 /* Red band */
 .hero-flyer .band {
-  background: var(--brand-red);
+  background: linear-gradient(
+    75deg,
+    #8B1D2C 0%,
+    #8B1D2C 15%,
+    #A51E29 35%,  /* mid-blend */
+    #B91F28 60%, 
+    #C82127 100%
+  );
   color: #fff;
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -1381,7 +1391,7 @@ ul.tight li {
 /* ===== HOMEPAGE FLYER HERO – REFINEMENTS (kept at the very end) ===== */
 .hero-flyer{
   --brand-red: #C82127;
-  --brand-red-dark: #8E171B;
+  --brand-red-dark: #050303;
   --hl-yellow: #fff08a;
   --ticker-h: 44px;
   display: flex;
@@ -1392,7 +1402,14 @@ ul.tight li {
 }
 
 .hero-flyer .band{
-  background: var(--brand-red);
+  background: linear-gradient(
+    0deg,
+    #8B1D2C 0%,
+    #8B1D2C 15%,
+    #A51E29 35%,  /* mid-blend */
+    #B91F28 60%, 
+    #C82127 100%
+  );
   color: #fff;
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -1786,7 +1803,11 @@ section#home.hero{
   margin: 22px 0 8px;
 }
 .mv__chip {
-  background: var(--brand);
+  background: linear-gradient(
+    180deg,
+    #8B1D2C 0%,
+    #610814 100%
+  );
   color: #fff;
   border: 0;
   border-radius: 4px;
@@ -2248,7 +2269,7 @@ section#home.hero{
 
 /* Tight, readable spacing */
 #board .board-grid .card.person h3{ margin:0 0 6px; }
-#board .board-grid .card.person p{  margin:0 0 6px; }
+#board .board-grid .card.person p{  margin:0 0 6px; font-size: clamp(0.9rem, 1.2vw, 1rem);}
 
 /* Responsive tweaks */
 @media (max-width:700px){
@@ -2359,3 +2380,92 @@ section#home.hero{
 @media (prefers-reduced-data: reduce) {
   .site-wallpaper { display: none !important; }
 }
+
+/* Hide any element toggled with [hidden] */
+[hidden] { display: none !important; }
+
+/* Compose tilt with your existing transforms (hover lifts, etc.) */
+.card, .bubble, .flyer, .gallery a { transform: var(--tilt, none); }
+
+/* Optional: ripple visual (if you don't already style it) */
+.btn { position: relative; overflow: hidden; }
+.btn .ripple { position: absolute; inset: 0; pointer-events: none; }
+.btn.rippling::after{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  animation: ripple .5s ease-out;
+}
+@keyframes ripple {
+  from { box-shadow: 0 0 0 0 rgba(255,255,255,.35); }
+  to   { box-shadow: 0 0 0 28px rgba(255,255,255,0); }
+}
+
+@media (min-width: 641px){
+  .dropdown:hover .dropdown-menu { display:block; }
+}
+
+/* ===== Minimal Section Layout ===== */
+.section { padding: 56px 0; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+h2 { margin: 0 0 6px; font-size: clamp(1.6rem, 2.5vw, 2.2rem); }
+h3 { margin: 24px 0 8px; font-size: clamp(1.1rem, 2vw, 1.3rem); }
+.eyebrow { margin: 0 0 16px; opacity: .8; }
+
+/* Inline image block (large rectangle) */
+.float-right {
+  width: min(44%, 520px);
+  margin: 8px 0 18px 24px;       /* keep some breathing room */
+  padding: 2px;
+  float: right;                   /* inline with text */
+  text-align: center;
+}
+.float-right img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;          /* rectangular space */
+  object-fit: cover;
+}
+.float-right figcaption {
+  font-size: .9rem;
+  opacity: .75;
+  margin-top: 8px;
+}
+
+/* Standouts kept simple */
+.pullquote {
+  margin: 20px 0;
+  padding: 12px 16px;
+  text-align: center;
+  border-left: 4px solid currentColor;
+  border-right: 4px solid currentColor;
+  background: rgba(0,0,0,.03);
+  text-shadow:
+    0 0 4px #fff,        /* close white glow */ 
+    0 0 12px #fff2a9;    /* stronger golden outer glow */
+}
+.standout {
+  letter-spacing: .04em;
+  font-weight: 800;
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+}
+
+/* Dividers */
+.divider {
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,.15);
+  margin: 18px 0;
+}
+
+/* Mobile: stack the image above text and remove float */
+@media (max-width: 820px){
+  .float-right {
+    float: none;
+    width: 100%;
+    margin: 0 0 18px 0;
+  }
+}
+
+/* ===== Lightweight reveal effect (plain, no libraries) ===== */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.in-view { opacity: 1; transform: translateY(0); }

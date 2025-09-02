@@ -1,177 +1,211 @@
-// Nav toggle
-const toggle = document.querySelector('.nav-toggle');
-const menu = document.querySelector('#nav-menu');
-if (toggle && menu){
-  toggle.addEventListener('click', () => {
-    const expanded = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!expanded));
-    menu.classList.toggle('show');
-  });
-}
+/* script.js — unified desktop/mobile nav + hardened utilities */
+(() => {
+  "use strict";
 
-// Dropdown keyboard + click
-document.querySelectorAll('.dropdown-toggle').forEach(btn => {
-  const wrap = btn.closest('.dropdown');
-  const dmenu = wrap?.querySelector('.dropdown-menu');
-  if (!wrap || !dmenu) return;
-  btn.addEventListener('click', () => {
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!open));
-    dmenu.style.display = open ? 'none' : 'block';
-  });
-  btn.addEventListener('blur', () => {
-    if (window.matchMedia('(min-width: 641px)').matches) return;
-    btn.setAttribute('aria-expanded', 'false');
-    dmenu.style.display = 'none';
-  });
-});
+  // ---------- helpers ----------
+  const $  = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
-// Current year
-const yearEl = document.getElementById('year');
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // run after DOM is parsed (use <script defer>)
+  document.addEventListener("DOMContentLoaded", () => {
 
-// Reveal on scroll
-(function () {
-  if (window._revealInit) return; window._revealInit = true;
-  const els = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) {
-    els.forEach(el => el.classList.add('visible'));
-    return;
-  }
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.15 });
-  els.forEach(el => io.observe(el));
-})();
-
-
-// Button ripple
-document.addEventListener('click', (e) => {
-  const btn = e.target.closest('.btn');
-  if (!btn) return;
-  let r = btn.querySelector('.ripple');
-  if (!r){ r = document.createElement('span'); r.className = 'ripple'; btn.appendChild(r); }
-  btn.classList.remove('rippling');
-  void r.offsetWidth;
-  btn.classList.add('rippling');
-  setTimeout(() => btn.classList.remove('rippling'), 500);
-});
-
-// Scroll to top button start //
-  const scrollBtn = document.getElementById("scrollTopBtn");
-
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 100) {
-      scrollBtn.classList.add("show");
-    } else {
-      scrollBtn.classList.remove("show");
+    // ===== Scroll-to-top button (guarded) =====
+    const scrollBtn = $("#scrollTopBtn");
+    if (scrollBtn) {
+      const onScrollBtn = () => {
+        if (window.scrollY > 100) scrollBtn.classList.add("show");
+        else scrollBtn.classList.remove("show");
+      };
+      window.addEventListener("scroll", onScrollBtn, { passive: true });
+      scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+      onScrollBtn();
     }
+
+    // ===== Unified NAV (desktop + mobile) =====
+    const navToggle = $(".nav-toggle");      // <button aria-controls="nav-menu">
+    const navMenu   = $("#nav-menu");        // <nav id="nav-menu">…</nav>
+    const mqDesktop = window.matchMedia("(min-width: 901px)");
+    let mobileOpen  = false;
+
+    const openMobile = () => {
+      mobileOpen = true;
+      navToggle?.setAttribute("aria-expanded", "true");
+      if (navMenu) {
+        navMenu.hidden = false;
+        navMenu.classList.add("show");  // keep for CSS transitions if you use them
+      }
+      document.body.classList.add("no-scroll"); // prevent background scroll on mobile
+    };
+
+    const closeMobile = () => {
+      mobileOpen = false;
+      navToggle?.setAttribute("aria-expanded", "false");
+      if (navMenu) {
+        navMenu.hidden = true;
+        navMenu.classList.remove("show");
+      }
+      document.body.classList.remove("no-scroll");
+    };
+
+    const setDesktopState = () => {
+      // On desktop, let CSS lay things out; menu should be visible and not overlay
+      mobileOpen = false;
+      navToggle?.setAttribute("aria-expanded", "false");
+      if (navMenu) {
+        navMenu.hidden = false;
+        navMenu.classList.remove("show");
+      }
+      document.body.classList.remove("no-scroll");
+    };
+
+    const setMobileClosed = () => closeMobile();
+
+    if (navToggle && navMenu) {
+      // initial state
+      mqDesktop.matches ? setDesktopState() : setMobileClosed();
+
+      // toggle button
+      navToggle.addEventListener("click", () => {
+        mobileOpen ? closeMobile() : openMobile();
+      });
+
+      // close when clicking outside (mobile only)
+      document.addEventListener("click", (e) => {
+        if (!mobileOpen) return;
+        if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+          closeMobile();
+        }
+      });
+
+      // close when a link is tapped/clicked inside the menu (mobile only)
+      navMenu.addEventListener("click", (e) => {
+        if (!mobileOpen) return;
+        if (e.target.closest("a")) closeMobile();
+      });
+
+      // Esc to close (mobile only)
+      document.addEventListener("keydown", (e) => {
+        if (!mobileOpen) return;
+        if (e.key === "Escape") closeMobile();
+      });
+
+      // keep things sane on resize
+      mqDesktop.addEventListener("change", (e) => {
+        e.matches ? setDesktopState() : setMobileClosed();
+      });
+    }
+
+// ===== Dropdowns (click on mobile, hover on desktop) =====
+$$(".dropdown-toggle").forEach((btn) => {
+  const wrap = btn.closest(".dropdown");
+  const menu = wrap?.querySelector(".dropdown-menu");
+  if (!wrap || !menu) return;
+
+  const mqHoverDesktop = window.matchMedia("(hover: hover) and (min-width: 641px)");
+
+  const close = () => { btn.setAttribute("aria-expanded", "false"); menu.hidden = true;  wrap.classList.remove("is-open"); };
+  const open  = () => { btn.setAttribute("aria-expanded", "true");  menu.hidden = false; wrap.classList.add("is-open"); };
+
+  // Keep behavior in sync with viewport capability
+  const sync = () => {
+    if (mqHoverDesktop.matches) {
+      // Desktop w/ hover: let CSS handle it; ensure NOT hidden
+      btn.setAttribute("aria-expanded", "false");
+      menu.hidden = false;               // remove [hidden] so :hover can display it
+      wrap.classList.remove("is-open");
+    } else {
+      // Mobile / touch: closed by default; JS toggles it
+      close();
+    }
+  };
+  sync();
+  mqHoverDesktop.addEventListener("change", sync);
+
+  // Mobile: toggle on tap/click
+  btn.addEventListener("click", (e) => {
+    if (mqHoverDesktop.matches) return;  // ignore clicks on desktop; hover will handle it
+    e.preventDefault();
+    (btn.getAttribute("aria-expanded") === "true") ? close() : open();
   });
 
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-// Scroll to top button end //
+  // Mobile: close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (mqHoverDesktop.matches) return;
+    if (!wrap.contains(e.target)) close();
+  });
 
-// Trigger the on-load animations once DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.classList.add('loaded');
+  // Mobile: close on Esc
+  document.addEventListener("keydown", (e) => {
+    if (mqHoverDesktop.matches) return;
+    if (e.key === "Escape") close();
+  });
+
+  // Mobile: close when a dropdown link is tapped
+  menu.addEventListener("click", (e) => {
+    if (mqHoverDesktop.matches) return;
+    if (e.target.closest("a")) close();
+  });
 });
 
-// ===== UX polish (progress bar, staggered reveals, gentle tilt) =====
-(function(){
-  if (window._uxPlusInit) return; window._uxPlusInit = true;
+    // ===== Reveal-on-scroll (for .reveal sections) =====
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      }),
+      { rootMargin: "0px 0px -10%", threshold: 0.1 }
+    );
+    $$(".reveal").forEach((el) => io.observe(el));
 
-  // 1) Scroll progress bar
-  const bar = document.createElement('div');
-  bar.className = 'scroll-progress';
-  document.body.appendChild(bar);
-  const setProgress = () => {
-    const doc = document.documentElement;
-    const max = doc.scrollHeight - doc.clientHeight;
-    const value = max > 0 ? (doc.scrollTop / max) : 0;
-    bar.style.transform = `scaleX(${Math.max(0, Math.min(1, value))})`;
-  };
-  document.addEventListener('scroll', setProgress, { passive: true });
-  window.addEventListener('resize', setProgress);
-  setProgress();
-
-  // 2) Staggered transitions for grids (nice cascade as they reveal)
-  const applyStagger = (selector, step = 40) => {
-    document.querySelectorAll(selector).forEach((el, i) => {
-      el.style.setProperty('--stagger', `${i * step}ms`);
+    // ===== Ticker (duplicate track once, safely) =====
+    $$(".ticker, .hero-ticker").forEach((ticker) => {
+      const track = $(".ticker-track", ticker);
+      if (!track) return;
+      if (!track.dataset.duped) {
+        const content = track.innerHTML.trim();
+        track.innerHTML = content + content;
+        track.dataset.duped = "1";
+      }
     });
-  };
-  applyStagger('.media-grid > *');
-  applyStagger('.flyer-grid > *');
-  applyStagger('.gallery > *', 30);
 
-  // 3) Gentle, accessible tilt on hover (skips for reduced motion)
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!prefersReduced){
-    const tilts = document.querySelectorAll('.card, .bubble, .flyer, .gallery a');
-    tilts.forEach(el => {
-      el.addEventListener('mousemove', (e) => {
-        const r = el.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width;
-        const py = (e.clientY - r.top) / r.height;
-        const rx = (0.5 - py) * 4;   // max 4deg
-        const ry = (px - 0.5) * 4;
-        el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+    // ===== Button ripple (respects reduced motion) =====
+    document.addEventListener("click", (e) => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const btn = e.target.closest(".btn");
+      if (!btn) return;
+
+      let ripple = btn.querySelector(".ripple");
+      if (!ripple) {
+        ripple = document.createElement("span");
+        ripple.className = "ripple";
+        btn.appendChild(ripple);
+      }
+      btn.classList.remove("rippling");
+      void ripple.offsetWidth;           // reflow
+      btn.classList.add("rippling");
+      setTimeout(() => btn.classList.remove("rippling"), 500);
+    });
+    window.addEventListener("pagehide", () => {
+      $$(".btn.rippling").forEach((b) => b.classList.remove("rippling"));
+    });
+
+    // ===== Gentle tilt (composes with existing transforms via CSS var) =====
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduced) {
+      const tiltable = $$(".card, .bubble, .flyer, .gallery a");
+      tiltable.forEach((el) => {
+        let raf = null, rx = 0, ry = 0;
+        const apply = () => { el.style.setProperty("--tilt", `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`); raf = null; };
+        el.addEventListener("mousemove", (ev) => {
+          const r = el.getBoundingClientRect();
+          const px = (ev.clientX - r.left) / r.width;
+          const py = (ev.clientY - r.top) / r.height;
+          rx = (0.5 - py) * 4;
+          ry = (px - 0.5) * 4;
+          if (!raf) raf = requestAnimationFrame(apply);
+        });
+        el.addEventListener("mouseleave", () => el.style.setProperty("--tilt", "none"));
       });
-      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
-    });
-  }
-})();
+    }
 
-// === Hero Ticker ===
-(function(){
-  const ticker = document.querySelector('.hero-ticker');
-  if (!ticker) return;
-
-  const track = ticker.querySelector('.ticker-track');
-  if (!track) return;
-
-  // Duplicate content for seamless 50% translate loop
-  const originalHTML = track.innerHTML.trim();
-  track.innerHTML = originalHTML + originalHTML;
-
-  // Duration = (half the track width) / speed(px/s)
-  const getSpeed = () => {
-    const s = parseFloat(getComputedStyle(ticker).getPropertyValue('--ticker-speed'));
-    return isNaN(s) ? 90 : s;
-  };
-
-  const setDuration = () => {
-    // half, because we’re translating -50%
-    const halfWidth = track.scrollWidth / 2;
-    const durationSec = halfWidth / getSpeed();
-    track.style.setProperty('--ticker-duration', `${durationSec}s`);
-  };
-
-  // Pause on hover/focus
-  const setPaused = (paused) => track.style.animationPlayState = paused ? 'paused' : 'running';
-  ticker.addEventListener('mouseenter', () => setPaused(true));
-  ticker.addEventListener('mouseleave', () => setPaused(false));
-  ticker.addEventListener('focusin',  () => setPaused(true));
-  ticker.addEventListener('focusout', () => setPaused(false));
-
-  // Respect reduced motion
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    track.style.animation = 'none';
-  } else {
-    setDuration();
-    window.addEventListener('resize', setDuration);
-  }
-
-  // Stagger the dot pulse a bit so they don’t flash in sync
-  track.querySelectorAll('.ticker-dot').forEach((dot, i) => {
-    dot.style.animationDelay = `${(i % 10) * 0.15}s`;
-  });
-
-  // Optional: pause when not visible (saves cycles)
-  const io = new IntersectionObserver(([entry]) => {
-    track.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
-  }, { threshold: 0 });
-  io.observe(ticker);
+  }); // DOMContentLoaded
 })();
