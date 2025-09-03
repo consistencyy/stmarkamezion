@@ -2328,6 +2328,7 @@ section#home.hero{
 /* ===== Global site wallpaper (excludes hero, donate, footer) ===== */
 :root {
   --wallpaper: url("assets/background.jpg"); /* put your image here */
+  opacity: 0.88;
 }
 
 /* Fixed full-screen layer behind the page */
@@ -2387,7 +2388,7 @@ section#home.hero{
 }
 
 /* ===== Minimal Section Layout ===== */
-.section { padding: 56px 0; }
+.section { padding: 64px 0; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
 h2 { margin: 0 0 6px; font-size: clamp(1.6rem, 2.5vw, 2.2rem); }
