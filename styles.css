@@ -1745,7 +1745,7 @@ section#home.hero{
   margin-bottom: 8px;
 }
 #board .board-subhead {
-  margin: 18px 0 10px;
+  margin: 12px 0 10px;
   font-size: clamp(1.1rem, 1.4vw, 1.35rem);
   color: var(--brand);
 }
@@ -2223,7 +2223,7 @@ section#home.hero{
 }
 
 #board .board-banner img{
-  height:clamp(260px,32vh,360px); /* thin vertical banner */
+  height:clamp(360px,32vh,480px); /* thin vertical banner */
   width:auto;
   border-radius:12px;
   box-shadow:var(--shadow,0 10px 30px rgba(0,0,0,.08));
@@ -2242,7 +2242,7 @@ section#home.hero{
   align-items:center;        /* center content horizontally */
   text-align:center;         /* center text too */
   gap:8px;
-  width: clamp(120px, 50vh, 800px);  max-width: 320px;          /* constrain max width */
+  width: clamp(120px, 50vh, 800px);  max-width: 480px;          /* constrain max width */
   padding: 16px 12px 20px;
   margin: 0 0 16px;
 }
@@ -2258,8 +2258,8 @@ section#home.hero{
 /* Headshot */
 #board .board-grid .card.person .board-photo{
   display:block;
-  width:120px;
-  height:120px;
+  width:150px;
+  height:150px;
   object-fit:cover;
   border-radius:12px;
   border:1px solid var(--border,#e6e8eb);
