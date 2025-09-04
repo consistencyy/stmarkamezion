@@ -2327,7 +2327,7 @@ section#home.hero{
 
 /* ===== Global site wallpaper (excludes hero, donate, footer) ===== */
 :root {
-  --wallpaper: url("assets/background.jpg"); /* put your image here */
+  --wallpaper: linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.18)), url("assets/background.jpg");
 }
 
 /* Fixed full-screen layer behind the page */
